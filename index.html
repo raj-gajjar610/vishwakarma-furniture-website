@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<!-- GLOBAL NAVBAR -->
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+<style>
+
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= BODY ================= */
+body{
+    margin:0;
+    background:#f4f4f4;
+    font-family:'Poppins', sans-serif;
+    color:#111;
+}
+
+/* ================= HERO VIDEO ================= */
+.hero-video{
+    position:relative;
+    width:85%;
+    margin:120px auto 60px;
+    height:500px;
+
+    border-radius:24px;
+    overflow:hidden;
+
+    box-shadow:0 30px 80px rgba(0,0,0,0.12);
+}
+
+/* VIDEO */
+.bg-video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+}
+
+/* OVERLAY */
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+}
+
+/* ================= CONTENT ================= */
+.hero-content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+/* TITLE */
+.hero-content h1{
+    font-size:56px;
+    letter-spacing:10px;
+    font-weight:300;
+    color:#fff;
+}
+
+/* SUBTITLE */
+.hero-content p{
+    letter-spacing:4px;
+    margin-top:10px;
+    color:#ccc;
+}
+
+/* ================= SEARCH ================= */
+.home-search{
+    display:flex;
+    justify-content:center;
+    margin-top:25px;
+}
+
+/* INPUT */
+.home-search input{
+    width:250px;
+    padding:14px 20px;
+
+    border-radius:30px 0 0 30px;
+    border:1px solid rgba(255,255,255,0.2);
+
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+
+    color:#fff;
+    outline:none;
+}
+
+.home-search input::placeholder{
+    color:#ddd;
+}
+
+/* BUTTON */
+.home-search button{
+    padding:14px 25px;
+
+    border:none;
+    border-radius:0 30px 30px 0;
+
+    background:linear-gradient(135deg,#c6a96b,#e6c88b);
+    color:#111;
+
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.home-search button:hover{
+    background:#fff;
+}
+
+/* ================= BUTTON ================= */
+.hero-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 35px;
+
+    border-radius:30px;
+
+    background:#c6a96b;
+    color:#fff;
+
+    text-decoration:none;
+    font-weight:500;
+    letter-spacing:2px;
+
+    transition:0.3s;
+}
+
+.hero-btn:hover{
+    background:#111;
+}
+/* ================= ABOUT ================= */
+.about-box{
+    width:85%;
+    margin:60px auto;
+
+    height:500px;
+
+    background:#fff;
+    border-radius:24px;
+    border:1px solid #eee;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+.about-box h2{
+    font-size:28px;
+    letter-spacing:4px;
+}
+
+.about-box p{
+    color:#777;
+    margin:15px 0;
+}
+
+/* BUTTON */
+.btn-gold{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 25px;
+    border-radius:30px;
+    background:#c6a96b;
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+
+.btn-gold:hover{
+    background:#111;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translate(-50%,-30%);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,-50%);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+    .hero-video,
+    .about-box{
+        height:400px;
+    }
+}
+
+@media(max-width:600px){
+    .hero-video,
+    .about-box{
+        height:auto;
+        padding:40px 20px;
+    }
+
+    .hero-content h1{
+        font-size:36px;
+    }
+}
+</style>
+
+<title>VISHWAKARMA FURNITURE</title>
+</head>
+
+<body>
+
+<!-- MENU -->
+<nav class="custom-navbar">
+
+    <a href="/" class="navbar-brand">
+        VISHWAKARMA FURNITURE
+    </a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+
+</nav>
+
+<!-- HERO VIDEO -->
+<section class="hero-video">
+
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1>VISHWAKARMA</h1>
+        <p>PREMIUM FURNITURE COLLECTION</p>
+
+        <!-- SEARCH -->
+        <form method="GET" action="/search/" class="home-search">
+            <input type="text" name="q" placeholder="Search furniture..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- BUTTON -->
+        <a href="/category" class="hero-btn">DISCOVER NOW</a>
+    </div>
+
+</section>
+<div class="about-box">
+
+<h2>ABOUT US</h2>
+<p>We design premium furniture with modern style and high-quality craftsmanship.</p>
+<a href="/about" class="btn-gold">Learn More</a>
+</div>
+<!-- JS -->
+
+
+</body>
+</html>

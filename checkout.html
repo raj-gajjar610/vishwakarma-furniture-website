@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Checkout | VISHWAKARMA FURNITURE</title>
+
+<style>
+
+/* ================= BODY ================= */
+body{
+    margin:0;
+    background:#f4f4f4;
+    font-family:'Poppins', sans-serif;
+    color:#111;
+}
+
+/* ================= SECTION ================= */
+.checkout-section{
+    padding-top:120px;
+    padding-bottom:80px;
+}
+
+/* CONTAINER */
+.container{
+    width:85%;
+    margin:auto;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:34px;
+    letter-spacing:6px;
+    font-weight:300;
+    margin-bottom:60px;
+}
+
+/* ================= WRAPPER ================= */
+.checkout-wrapper{
+    display:flex;
+    gap:40px;
+}
+
+/* LEFT */
+.left{
+    flex:2;
+}
+
+/* RIGHT */
+.right{
+    flex:1;
+}
+
+/* ================= CARD ================= */
+.card{
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+
+    border:1px solid #eee;
+
+    box-shadow:0 20px 40px rgba(0,0,0,0.05);
+
+    margin-bottom:30px;
+}
+
+/* TITLE */
+.card h3{
+    font-size:18px;
+    letter-spacing:3px;
+    margin-bottom:20px;
+}
+
+/* ================= INPUT ================= */
+.card input{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+
+    border-radius:10px;
+    border:1px solid #ddd;
+
+    font-family:'Poppins', sans-serif;
+
+    box-sizing:border-box; /* ⭐ IMPORTANT FIX */
+}
+
+.card input:focus{
+    outline:none;
+    border-color:#c6a96b;
+    box-shadow:0 0 0 2px rgba(198,169,107,0.1);
+}
+
+/* ================= ITEMS ================= */
+.item{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+
+.item:last-child{
+    border:none;
+}
+
+/* ================= PAYMENT ================= */
+.card label{
+    display:block;
+    margin-bottom:10px;
+    color:#555;
+}
+
+/* ================= SUMMARY ================= */
+.summary p{
+    display:flex;
+    justify-content:space-between;
+    margin:10px 0;
+    color:#666;
+}
+
+/* TOTAL */
+.total{
+    font-size:18px;
+    margin-top:15px;
+}
+
+/* BUTTON */
+.pay-btn{
+    width:100%;
+    margin-top:25px;
+
+    padding:14px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#c6a96b;
+    color:#fff;
+
+    font-weight:500;
+    letter-spacing:2px;
+
+    transition:0.3s;
+}
+
+.pay-btn:hover{
+    background:#111;
+    transform:translateY(-2px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+    .checkout-wrapper{
+        flex-direction:column;
+    }
+}
+
+
+    .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    background: #111;
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 300px;
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+.popup-buttons button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+#confirmBtn {
+    background: gold;
+    color: black;
+}
+
+#cancelBtn {
+    background: #444;
+    color: white;
+}
+</style>
+
+<!-- NAVBAR -->
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+</head>
+
+<body>
+
+<nav class="custom-navbar">
+
+    <a href="/" class="navbar-brand">
+        VISHWAKARMA FURNITURE
+    </a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+
+</nav>
+
+<section class="checkout-section">
+
+<div class="container">
+
+<h2 class="title">CHECKOUT</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<div class="checkout-wrapper">
+
+<!-- LEFT -->
+<div class="left">
+
+<!-- ADDRESS -->
+<div class="card">
+<h3>Delivery Address</h3>
+
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="text" name="address" placeholder="Address" required>
+<input type="text" name="pincode" placeholder="Pincode" required>
+<input type="text" name="state" placeholder="State" required>
+<input type="text" name="contact" placeholder="Phone Number" required>
+
+</div>
+
+<!-- PAYMENT -->
+<div class="card">
+<h3>Payment Method</h3>
+
+<label><input type="radio" name="payment" value="cod" required> Cash on Delivery</label>
+<label><input type="radio" name="payment" value="upi"> UPI</label>
+<label><input type="radio" name="payment" value="card"> Credit / Debit Card</label>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+
+<!-- PRODUCTS -->
+<div class="card">
+<h3>Order Items</h3>
+
+{% for item in cart_items %}
+<div class="item">
+<span>{{ item.s_id.s_name }} ({{ item.Qty }})</span>
+<span>₹ {{ item.total_price }}</span>
+</div>
+{% endfor %}
+
+</div>
+
+<!-- SUMMARY -->
+<div class="card summary">
+<h3>Price Details</h3>
+
+<p><span>Total Items</span><span>{{ cart_items|length }}</span></p>
+<p><span>Total Price</span><span>₹ {{ grand_total }}</span></p>
+<p><span>Delivery</span><span>Free</span></p>
+
+<hr>
+
+<p class="total">
+<span><b>Total Payable</b></span>
+<span><b>₹ {{ grand_total }}</b></span>
+</p>
+
+<button type="button" class="pay-btn" onclick="openPopup()">
+    PLACE ORDER
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</section>
+<!-- CONFIRM POPUP -->
+<div id="orderPopup" class="popup">
+    <div class="popup-box">
+        <h3>Confirm Order</h3>
+        <p>Are you sure you want to place this order?</p>
+
+        <div class="popup-buttons">
+            <button id="confirmBtn">Agree</button>
+            <button id="cancelBtn">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function openPopup() {
+    document.getElementById("orderPopup").style.display = "flex";
+}
+
+document.getElementById("cancelBtn").onclick = function() {
+    document.getElementById("orderPopup").style.display = "none";
+};
+
+document.getElementById("confirmBtn").onclick = function() {
+
+    fetch("/razorpay-order/")
+    .then(res => res.json())
+    .then(data => {
+
+        var rzp = new Razorpay({
+            key: data.key,
+            amount: data.amount,
+            order_id: data.order_id,
+
+            handler: function (response) {
+
+                // ✅ CREATE HIDDEN INPUT
+                let input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "razorpay_payment_id";
+                input.value = response.razorpay_payment_id;
+
+                // ✅ APPEND TO FORM
+                document.querySelector("form").appendChild(input);
+
+                // ✅ SUBMIT FORM
+                document.querySelector("form").submit();
+            }
+        });
+
+        rzp.open();
+    });
+};
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Search Results | VISHWAKARMA FURNITURE</title>
+
+<style>
+
+/* ================= BODY ================= */
+body{
+    margin:0;
+    background:#f4f4f4;
+    font-family:'Poppins', sans-serif;
+    color:#111;
+}
+
+/* ================= SECTION ================= */
+.search-section{
+    padding-top:120px;
+    padding-bottom:80px;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    margin:auto;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:28px;
+    letter-spacing:3px;
+    margin-bottom:40px;
+}
+
+/* ================= GRID ================= */
+.sub-grid{
+    display:flex;
+    flex-direction:column;
+    gap:50px;
+}
+
+/* ================= CARD ================= */
+.sub-card{
+    position:relative;
+    display:flex;
+    height:420px;
+
+    border-radius:30px;
+    overflow:hidden;
+
+    background:#000;
+
+    box-shadow:0 30px 80px rgba(0,0,0,0.15);
+
+    transition:0.5s ease;
+}
+
+.sub-card:hover{
+    transform:translateY(-8px) scale(1.01);
+    box-shadow:0 40px 100px rgba(0,0,0,0.25);
+}
+
+/* ================= IMAGE ================= */
+.sub-img{
+    flex:1.5;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+
+    transition:1s ease;
+}
+
+.sub-img::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to right,
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.05)
+    );
+}
+
+.sub-card:hover .sub-img{
+    transform:scale(1.08);
+}
+
+/* ================= CONTENT ================= */
+.sub-content{
+    flex:1;
+    position:relative;
+    z-index:2;
+
+    margin:40px;
+    padding:35px;
+
+    border-radius:20px;
+
+    background:rgba(0,0,0,0.65);
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* ================= TITLE ================= */
+.sub-title{
+    font-size:32px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+    color:#fff;
+}
+
+/* ================= PRICE ================= */
+.sub-price{
+    color:#cfcfcf;
+    margin-bottom:15px;
+}
+
+/* ================= DESC ================= */
+.sub-desc{
+    color:#e5e5e5;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+/* ================= BUTTON ================= */
+.sub-btn{
+    display:inline-block;
+    width:fit-content;
+
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    background:linear-gradient(135deg,#c6a96b,#e6c88b);
+    color:#111;
+
+    text-decoration:none;
+    letter-spacing:2px;
+    font-weight:600;
+
+    transition:0.4s ease;
+}
+
+.sub-btn:hover{
+    background:#fff;
+    transform:translateY(-3px);
+}
+
+/* ================= ALT ================= */
+.sub-card:nth-child(even){
+    flex-direction:row-reverse;
+}
+
+/* ================= NO RESULT ================= */
+.no-result{
+    text-align:center;
+    font-size:18px;
+    margin-top:40px;
+    color:#555;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+
+    .sub-card{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .sub-img{
+        height:260px;
+    }
+
+    .sub-content{
+        margin:20px;
+        padding:25px;
+    }
+
+    .sub-card:nth-child(even){
+        flex-direction:column;
+    }
+}
+
+</style>
+
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="custom-navbar">
+
+    <a href="/" class="navbar-brand">
+        VISHWAKARMA FURNITURE
+    </a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+
+</nav>
+
+<!-- SECTION -->
+<section class="search-section">
+
+<div class="container">
+
+<h2 class="title">Search Results for "{{ query }}"</h2>
+
+<div class="sub-grid">
+
+{% if results %}
+
+   {% for item in results %}
+
+<div class="sub-card">
+
+    <div class="sub-img"
+    style="background-image:url('{% if item.image_set.first %}{{ item.image_set.first.image.url }}{% endif %}');">
+    </div>
+
+    <div class="sub-content">
+
+        <h2 class="sub-title">{{ item.s_name }}</h2>
+
+        <p class="sub-price">₹ {{ item.price }}</p>
+
+        <p class="sub-desc">
+            {{ item.detail|truncatewords:15 }}
+        </p>
+
+        <a href="/product_detail/{{ item.s_id }}/" class="sub-btn">
+            View Product
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+{% else %}
+
+    <p class="no-result">No products found 😕</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>

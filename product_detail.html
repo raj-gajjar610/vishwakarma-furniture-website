@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>VISHWAKARMA FURNITURE</title>
+
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+<style>
+/* ================= BODY ================= */
+body{
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, 'Poppins', sans-serif;
+    background:#f2f2f7;
+}
+
+/* SECTION */
+.product-section{
+    padding:120px 0 80px;
+}
+
+/* CONTAINER (WIDER) */
+.container{
+    width:92%;
+    max-width:1400px;
+    margin:auto;
+}
+
+/* ================= CARD ================= */
+.info-card{
+    display:flex;
+    gap:40px;
+
+    background:#fff;
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* IMAGE (BIGGER) */
+.card-image{
+    flex:1.3;
+}
+
+.card-image img{
+    width:100%;
+    height:480px;
+    object-fit:cover;
+    border-radius:18px;
+}
+
+/* RIGHT SIDE */
+.card-content{
+    flex:2;
+    display:flex;
+    flex-direction:column;
+}
+
+/* TOP */
+.top-content{
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+/* LEFT INFO */
+.info-left{
+    flex:2;
+}
+
+.product-title{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.product-price{
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.product-desc{
+    font-size:14px;
+    color:#666;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+/* TAGS */
+.quick-spec{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.quick-spec span{
+    background:#f5f5f5;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* RIGHT BUTTONS */
+.info-right{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    justify-content:center;
+}
+
+/* BUTTONS */
+.btn-primary{
+    padding:12px;
+    border-radius:10px;
+    background:#000;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+}
+
+.btn-secondary{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    background:#fafafa;
+    text-align:center;
+    text-decoration:none;
+    color:#111;
+}
+
+.wishlist{
+    text-align:center;
+    font-size:13px;
+    color:#888;
+    text-decoration:none;
+}
+
+/* ================= BOTTOM ================= */
+.bottom-details{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #eee;
+}
+
+.bottom-details h3{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.spec-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.spec-grid p{
+    background:#fafafa;
+    padding:10px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+    .info-card{
+        flex-direction:column;
+    }
+
+    .top-content{
+        flex-direction:column;
+    }
+
+    .card-image img{
+        height:300px;
+    }
+
+    .spec-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="custom-navbar">
+    <a href="/" class="navbar-brand">VISHWAKARMA FURNITURE</a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+</nav>
+
+<section class="product-section">
+
+<div class="container">
+
+<div class="info-card">
+
+    <!-- LEFT IMAGE -->
+    <div class="card-image">
+        <img src="{{ image.image.url }}" alt="">
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="card-content">
+
+        <div class="top-content">
+
+            <!-- LEFT INFO -->
+            <div class="info-left">
+
+                <h1 class="product-title">{{ product.s_name }}</h1>
+
+                <p class="product-price">₹ {{ product.price }}</p>
+
+                <p class="product-desc">
+                    {{ product.detail|default:"Material: Teak wood Size: 6x3 ft Finish: Matte polish Warranty: 5 years" }}
+                </p>
+
+                <div class="quick-spec">
+                    <span>Teak Wood</span>
+                    <span>5 Year Warranty</span>
+                    <span>Free Installation</span>
+                </div>
+
+            </div>
+
+            <!-- RIGHT BUTTONS -->
+            <div class="info-right">
+
+                <h2>₹ {{ product.price }}</h2>
+
+                <a href="/add_to_cart/{{ product.s_id }}/" class="btn-primary">
+                    Add to Cart
+                </a>
+
+                <a href="/checkout/?product_id={{ product.s_id }}" class="btn-secondary">
+                    Buy Now
+                </a>
+
+                <a href="/add_to_wishlist/{{ product.s_id }}/" class="wishlist">
+                    ♥ Save
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- BOTTOM DETAILS -->
+        <div class="bottom-details">
+
+            <h3>Product Specifications</h3>
+
+            <div class="spec-grid">
+                <p><b>Material:</b> Premium Teak Wood</p>
+                <p><b>Finish:</b> Matte Polish</p>
+                <p><b>Warranty:</b> 5 Years</p>
+                <p><b>Delivery:</b> 5–7 Days</p>
+                <p><b>Assembly:</b> Free Installation</p>
+                <p><b>Stock:</b> In Stock</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+</body>
+</html>

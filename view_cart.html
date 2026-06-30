@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<style>
+/* ================= BODY ================= */
+body{
+    margin:0;
+    background:#f2f2f7;
+    font-family:-apple-system, BlinkMacSystemFont, 'Poppins', sans-serif;
+    color:#111;
+}
+
+/* ================= SECTION ================= */
+.viewcart-section{
+    padding-top:120px;
+    padding-bottom:80px;
+}
+
+/* TITLE */
+.cart-title{
+    text-align:center;
+    font-size:34px;
+    letter-spacing:6px;
+    font-weight:300;
+    margin-bottom:70px;
+}
+
+/* WRAPPER */
+.cart-wrapper{
+    width:92%;
+    max-width:1400px;
+    margin:auto;
+
+    display:flex;
+    gap:40px;
+    align-items:flex-start;
+}
+
+/* ================= LEFT GRID ================= */
+.cart-left{
+    flex:3;
+
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:25px;
+}
+
+/* ================= CARD ================= */
+.cart-card{
+    display:flex;
+    flex-direction:column;
+
+    background:#fff;
+    padding:15px;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+    transition:0.3s;
+}
+
+.cart-card:hover{
+    transform:translateY(-4px);
+}
+
+/* ================= IMAGE ================= */
+.cart-img{
+    width:100%;
+    height:180px;
+}
+
+.cart-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* ================= INFO ================= */
+.cart-info{
+    margin-top:12px;
+}
+
+.product-name{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.price{
+    font-size:14px;
+    color:#666;
+}
+
+/* ================= QTY ================= */
+.qty-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.qty-btn{
+    width:28px;
+    height:28px;
+    border-radius:6px;
+
+    border:1px solid #ddd;
+    background:#fafafa;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    color:#111;
+
+    transition:0.3s;
+}
+
+.qty-btn:hover{
+    background:#c6a96b;
+    color:#111;
+}
+
+/* ================= ACTION ================= */
+.cart-actions{
+    margin-top:8px;
+}
+
+.cart-actions a{
+    font-size:12px;
+    color:#666;
+    margin-right:10px;
+    text-decoration:none;
+}
+
+.remove-link{
+    color:#d9534f;
+}
+
+/* ================= TOTAL ================= */
+.total-price{
+    margin-top:10px;
+    font-size:14px;
+    font-weight:500;
+}
+
+/* ================= RIGHT ================= */
+.cart-right{
+    flex:1;
+    position:sticky;
+    top:120px;
+}
+
+/* ORDER BOX */
+.price-box{
+    background:#fff;
+    padding:25px;
+    border-radius:16px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* TITLE */
+.price-title{
+    font-size:14px;
+    margin-bottom:15px;
+    color:#666;
+}
+
+/* DETAILS */
+.price-box p{
+    font-size:14px;
+    margin:8px 0;
+}
+
+/* TOTAL */
+.grand-total{
+    font-size:18px;
+    margin-top:15px;
+}
+
+/* ================= BUTTON ================= */
+.place-order-btn{
+    width:100%;
+    margin-top:25px;
+
+    padding:14px;
+
+    border-radius:30px;
+
+    background:linear-gradient(135deg,#c6a96b,#e6c88b);
+    color:#111;
+
+    border:none;
+
+    font-weight:600;
+    letter-spacing:2px;
+
+    transition:0.3s ease;
+    cursor:pointer;
+}
+
+.place-order-btn:hover{
+    background:#111;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+</style>
+
+<title>VISHWAKARMA FURNITURE</title>
+
+<!-- GLOBAL NAVBAR -->
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="custom-navbar">
+
+    <a href="/" class="navbar-brand">
+        VISHWAKARMA FURNITURE
+    </a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+
+    <div class="navbar-message" id="navbarMessage">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    </div>
+</nav>
+
+<!-- CART -->
+<section class="viewcart-section">
+
+<div class="container">
+
+<h2 class="cart-title">YOUR CART</h2>
+
+<div class="cart-wrapper">
+
+<!-- LEFT -->
+<div class="cart-left">
+
+{% for item in cart_items %}
+<div class="cart-card">
+
+<div class="cart-img">
+<img src="{{ item.s_id.image_set.first.image.url }}">
+</div>
+
+<div class="cart-info">
+
+<h4 class="product-name">{{ item.s_id.s_name }}</h4>
+
+<p class="price">₹ {{ item.s_id.price }}</p>
+
+<div class="qty-box">
+<a href="/decrease_qty/{{item.cart_id}}/" class="qty-btn">-</a>
+<span>{{item.Qty}}</span>
+<a href="/increase_qty/{{item.cart_id}}/" class="qty-btn">+</a>
+</div>
+
+<div class="cart-actions">
+<a href="/product_detail/{{ item.s_id.s_id }}/">View</a>
+    <a href="/checkout/?product_id={{ product.s_id }}" class="remove-link">Buy Now</a>
+<a href="/remove_cart/{{ item.cart_id }}/" class="remove-link">Remove</a>
+</div>
+
+</div>
+
+<div class="total-price">₹ {{ item.total_price }}</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+<!-- RIGHT -->
+<div class="cart-right">
+
+<div class="price-box">
+
+<h4 class="price-title">ORDER SUMMARY</h4>
+
+<p>Total Items : {{ cart_items|length }}</p>
+<p>Total Price : ₹ {{ grand_total }}</p>
+
+<hr>
+
+<p class="grand-total">
+Grand Total : ₹ {{ grand_total }}
+</p>
+
+<button class="place-order-btn"
+onclick="window.location.href='/checkout/'">
+Place Order
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const msg = document.getElementById("navbarMessage");
+    const brand = document.querySelector(".navbar-brand");
+
+    if(msg && msg.innerText.trim().length > 0){
+
+        // show
+        msg.classList.add("show");
+        brand.classList.add("hide");
+
+        // start hide animation after 2.5 sec
+        setTimeout(()=>{
+            msg.classList.remove("show");
+            msg.classList.add("hide");
+            brand.classList.remove("hide");
+        }, 2500);
+
+        // fully reset after animation
+        setTimeout(()=>{
+            msg.classList.remove("hide");
+        }, 3200);
+    }
+
+});
+</script>
+</body>
+</html>

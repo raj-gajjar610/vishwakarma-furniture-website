@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<style>
+
+/* ================= BODY ================= */
+body{
+    margin:0;
+    background:#f4f4f4;
+    font-family:'Poppins', sans-serif;
+    color:#111;
+}
+
+/* ================= SECTION ================= */
+.contact-section{
+    padding-top:120px;
+    padding-bottom:80px;
+}
+
+/* GLOBAL CONTAINER */
+.container{
+    width:85%;
+    margin:auto;
+}
+
+/* TITLE */
+.contact-title{
+    text-align:center;
+    font-size:34px;
+    letter-spacing:6px;
+    font-weight:300;
+    margin-bottom:70px;
+}
+
+/* ================= INFO GRID ================= */
+.contact-info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-bottom:60px;
+}
+
+/* CARD */
+.contact-card{
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+
+    border:1px solid #eee;
+
+    text-align:center;
+
+    transition:0.35s ease;
+}
+
+/* HOVER */
+.contact-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* TEXT */
+.contact-card span{
+    display:block;
+    color:#c6a96b;
+    margin-bottom:8px;
+    font-size:13px;
+    letter-spacing:2px;
+}
+
+.contact-card{
+    font-size:14px;
+    color:#555;
+}
+
+/* ================= FORM + MAP ================= */
+.contact-wrapper{
+    display:flex;
+    gap:40px;
+}
+
+/* FORM BOX */
+.contact-form{
+    flex:1;
+
+    background:#fff;
+    padding:35px;
+    border-radius:24px;
+
+    border:1px solid #eee;
+
+    box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* INPUT */
+.contact-form input,
+.contact-form textarea{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+    border-radius:10px;
+
+    color:#111;
+    font-family:'Poppins', sans-serif;
+
+    transition:0.3s;
+}
+
+/* INPUT FOCUS */
+.contact-form input:focus,
+.contact-form textarea:focus{
+    outline:none;
+    border-color:#c6a96b;
+    box-shadow:0 0 0 2px rgba(198,169,107,0.1);
+}
+
+/* BUTTON */
+.btn-gold{
+    width:100%;
+    padding:14px;
+
+    background:#c6a96b;
+    border:none;
+    border-radius:30px;
+
+    color:#fff;
+    font-weight:500;
+    letter-spacing:2px;
+
+    transition:0.3s ease;
+}
+
+/* BUTTON HOVER */
+.btn-gold:hover{
+    background:#111;
+    transform:translateY(-2px);
+}
+
+/* MAP */
+.map-box{
+    flex:1;
+
+    border-radius:24px;
+    overflow:hidden;
+
+    border:1px solid #eee;
+
+    box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+    .contact-info-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .contact-wrapper{
+        flex-direction:column;
+    }
+}
+
+@media(max-width:600px){
+    .contact-info-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+<title>VISHWAKARMA FURNITURE</title>
+
+<!-- GLOBAL NAVBAR -->
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="custom-navbar">
+
+    <a href="/" class="navbar-brand">
+        VISHWAKARMA FURNITURE
+    </a>
+
+    <div class="menu-items">
+        <a href="/">HOME</a>
+        <a href="/category">CATEGORY</a>
+        <a href="/about">ABOUT</a>
+        <a href="/contact">CONTACT</a>
+        <a href="/view_cart">CART</a>
+        <a href="/wishlist">WISHLIST</a>
+        <a href="/login">LOGIN</a>
+    </div>
+
+</nav>
+
+<!-- CONTACT -->
+<section class="contact-section">
+
+<div class="container">
+
+<h2 class="contact-title">CONTACT US</h2>
+
+<!-- INFO -->
+<div class="contact-info-grid">
+
+<div class="contact-card">
+<span>Address</span>
+198 West 21th Street, NY
+</div>
+
+<div class="contact-card">
+<span>Phone</span>
++91 9999999999
+</div>
+
+<div class="contact-card">
+<span>Email</span>
+info@furniture.com
+</div>
+
+<div class="contact-card">
+<span>Website</span>
+yourstore.com
+</div>
+
+</div>
+
+<!-- FORM + MAP -->
+<div class="contact-wrapper">
+
+<!-- FORM -->
+<div class="contact-form">
+<form>
+
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Your Email">
+<input type="text" placeholder="Subject">
+
+<textarea rows="6" placeholder="Message"></textarea>
+
+<button class="btn-gold">Send Message</button>
+
+</form>
+</div>
+
+<!-- MAP -->
+<div class="map-box">
+<iframe
+src="https://maps.google.com/maps?q=Ahmedabad&t=&z=13&ie=UTF8&iwloc=&output=embed"
+width="100%" height="100%" style="border:0;">
+</iframe>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- JS -->
+
+</body>
+</html>

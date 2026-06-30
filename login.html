@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Login</title>
+
+<style>
+
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= BODY ================= */
+body{
+    height:100vh;
+    font-family:'Poppins', sans-serif;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+/* ================= VIDEO ================= */
+.bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+/* OVERLAY */
+.video-overlay{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.85)
+    );
+    z-index:-1;
+}
+
+/* ================= BOX ================= */
+.login-container{
+    position:relative;
+    z-index:2;
+
+    width:360px;
+    padding:45px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+
+    animation:fadeUp 0.6s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* ================= TITLE ================= */
+.login-title{
+    text-align:center;
+    font-size:24px;
+    letter-spacing:5px;
+    color:#fff;
+    margin-bottom:30px;
+}
+
+/* ================= INPUT ================= */
+.form-control{
+    width:100%;
+    padding:14px;
+    margin-bottom:18px;
+
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:14px;
+
+    color:#fff;
+
+    transition:0.3s;
+}
+
+.form-control::placeholder{
+    color:#bbb;
+}
+
+.form-control:focus{
+    outline:none;
+    border-color:#c6a96b;
+    box-shadow:0 0 0 2px rgba(198,169,107,0.2);
+}
+
+/* ================= BUTTON ================= */
+.btn-gold{
+    width:60%;
+    padding:12px;
+
+    margin:25px auto 0;
+    display:block;
+
+    background:#c6a96b;
+    border:none;
+    border-radius:30px;
+
+    color:#fff;
+    font-weight:500;
+    letter-spacing:2px;
+
+    transition:0.3s;
+}
+
+.btn-gold:hover{
+    background:#111;
+    transform:translateY(-2px);
+}
+
+/* ================= EXTRA ================= */
+.extra{
+    display:flex;
+    justify-content:space-between;
+    margin-top:18px;
+    font-size:13px;
+    color:#ccc;
+}
+
+.extra a{
+    color:#c6a96b;
+    text-decoration:none;
+}
+
+.extra a:hover{
+    color:#fff;
+}
+
+/* ================= SIGNUP ================= */
+.signup-link{
+    margin-top:12px;
+    font-size:14px;
+}
+
+.signup-link a{
+    color:#c6a96b;
+    text-decoration:none;
+}
+
+.signup-link a:hover{
+    color:#fff;
+}
+.error-msg{
+    background:rgba(255,77,77,0.12);
+    color:#ff4d4d;
+
+    padding:10px;
+    margin:15px 0;
+
+    border-radius:8px;
+    text-align:center;
+
+    border:1px solid rgba(255,77,77,0.3);
+
+    font-size:13px;
+}
+</style>
+
+</head>
+
+<body>
+
+
+<!-- VIDEO -->
+<video autoplay muted loop playsinline class="bg-video">
+    <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
+</video>
+
+<div class="video-overlay"></div>
+
+<!-- LOGIN BOX -->
+<div class="login-container">
+
+<form method="post">
+{% csrf_token %}
+
+<h2 class="login-title">LOGIN</h2>
+
+    {% if error %}
+<p class="error-msg">{{ error }}</p>
+{% endif %}
+
+<input type="email" name="email" class="form-control" placeholder="Email" required>
+
+<input type="password" name="password" class="form-control" placeholder="Password" required>
+
+<button type="submit" class="btn-gold">Log In</button>
+
+<div class="extra">
+<label><input type="checkbox"> Remember</label>
+<a href="#">Forgot?</a>
+</div>
+
+<div class="signup-link">
+<a href="/signup">Create Account</a>
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>
